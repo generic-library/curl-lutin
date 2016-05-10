@@ -77,17 +77,6 @@ def create(target, module_name):
 	my_module.compile_flags('c', [
 	    '-DHAVE_CONFIG_H',
 	    ])
-	my_module.compile_flags('link', [
-	    '-lidn',
-	    '-llber',
-	    '-lldap',
-	    '-ldl',
-	    '-lssl',
-	    '-lcrypto',
-	    '-lz',
-	    '-lssh2',
-	    ])
-	    
 	my_module.compile_version("c", 1989, gnu=True)
 	my_module.add_module_depend('curl')
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "src"))

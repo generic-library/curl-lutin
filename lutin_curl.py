@@ -149,9 +149,12 @@ def create(target, module_name):
 	    '-Dlibcurl_EXPORTS',
 	    '-DBUILDING_LIBCURL',
 	    '-DHAVE_CONFIG_H',
+	    '-DCURL_DISABLE_LDAP',
 	    ])
 	my_module.compile_version("c", 1989, gnu=True)
 	my_module.add_module_depend('z')
+	my_module.add_module_depend('openssl')
+	my_module.add_module_depend('ssh2')
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "lib"))
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "include"))
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "include", "curl"))
