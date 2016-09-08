@@ -74,11 +74,11 @@ def create(target, module_name):
 	    'curl/lib/nonblock.c',
 	    'curl/lib/warnless.c',
 	    ])
-	my_module.compile_flags('c', [
+	my_module.add_flag('c', [
 	    '-DHAVE_CONFIG_H',
 	    ])
 	my_module.compile_version("c", 1989, gnu=True)
-	my_module.add_module_depend('curl')
+	my_module.add_depend('curl')
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "src"))
 	# Bad lib implementation ...
 	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "lib"))
