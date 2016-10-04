@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 import os
 
@@ -25,8 +25,7 @@ def get_maintainer():
 def get_version():
 	return [7,48,0]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'curl/src/slist_wc.c',
 	    'curl/src/tool_binmode.c',
@@ -79,14 +78,14 @@ def create(target, module_name):
 	    ])
 	my_module.compile_version("c", 1989, gnu=True)
 	my_module.add_depend('curl')
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "src"))
+	my_module.add_path("curl/src")
 	# Bad lib implementation ...
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "lib"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "include"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "include", "curl"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "generate"))
+	my_module.add_path("curl/lib")
+	my_module.add_path("curl/include")
+	my_module.add_path("curl/include/curl")
+	my_module.add_path("generate")
 	# end bad
-	return my_module
+	return True
 
 """
 ',/home/heero/dev/perso/framework/curl-lutin/curl/src',,

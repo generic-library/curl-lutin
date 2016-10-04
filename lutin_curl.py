@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
 import os
 
@@ -25,8 +25,7 @@ def get_maintainer():
 def get_version():
 	return [7,48,0]
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
 	    'curl/lib/file.c',
 	    'curl/lib/timeval.c',
@@ -152,13 +151,17 @@ def create(target, module_name):
 	    '-DCURL_DISABLE_LDAP',
 	    ])
 	my_module.compile_version("c", 1989, gnu=True)
-	my_module.add_depend('z')
-	my_module.add_depend('openssl')
-	my_module.add_depend('ssh2')
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "lib"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "include"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "curl", "include", "curl"))
-	my_module.add_path(os.path.join(tools.get_current_path(__file__), "generate"))
+	my_module.add_depend([
+	    'z',
+	    'openssl',
+	    'ssh2'
+	    ])
+	my_module.add_path([
+	    "curl/lib",
+	    "curl/include",
+	    "curl/include/curl",
+	    "generate"
+	    ])
 	my_module.add_header_file([
 	    'curl/include/curl/mprintf.h',
 	    'curl/include/curl/curlver.h',
@@ -171,4 +174,4 @@ def create(target, module_name):
 	    'generate/curlbuild.h',
 	    ],
 	    destination_path="curl")
-	return my_module
+	return True
